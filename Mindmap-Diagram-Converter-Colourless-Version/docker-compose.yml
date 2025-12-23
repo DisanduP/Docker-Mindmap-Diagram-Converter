@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mindmap-converter:
+    build: .
+    image: mindmap-converter:latest
+    volumes:
+      - ./input:/input:ro
+      - ./output:/output
+    command: ["/input/example.mmd", "/output/example.drawio.xml"]
+    deploy:
+      replicas: 1  # Can be scaled up for parallel processing
+
+  # Example of running multiple instances
+  converter-1:
+    image: mindmap-converter:latest
+    volumes:
+      - ./input:/input:ro
+      - ./output:/output
+    command: ["/input/file1.mmd", "/output/file1.drawio.xml"]
+    profiles: ["parallel"]
+
+  converter-2:
+    image: mindmap-converter:latest
+    volumes:
+      - ./input:/input:ro
+      - ./output:/output
+    command: ["/input/file2.mmd", "/output/file2.drawio.xml"]
+    profiles: ["parallel"]
+
+  converter-3:
+    image: mindmap-converter:latest
+    volumes:
+      - ./input:/input:ro
+      - ./output:/output
+    command: ["/input/file3.mmd", "/output/file3.drawio.xml"]
+    profiles: ["parallel"]
+
+  converter-4:
+    image: mindmap-converter:latest
+    volumes:
+      - ./input:/input:ro
+      - ./output:/output
+    command: ["/input/file4.mmd", "/output/file4.drawio.xml"]
+    profiles: ["parallel"]
